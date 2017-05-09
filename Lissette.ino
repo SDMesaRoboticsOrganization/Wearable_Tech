@@ -1,3 +1,8 @@
+//Author: Anthony Garcia
+//Date: 5/9/17
+//Project: Lisset - 2017 Golden Scissors Fashion Show
+//Version: 1.3
+
 #include <Adafruit_NeoPixel.h>
 #ifdef __AVR__
 #include <avr/power.h>
@@ -18,11 +23,6 @@ int fadeSpeed = 5;
 
 void setup()
 {
-  // This is for Trinket 5V 16MHz, you can remove these three lines if you are not using a Trinket
-#if defined (__AVR_ATtiny85__)
-  if (F_CPU == 16000000) clock_prescale_set(clock_div_1);
-#endif
-  // End of trinket special code
   strip.setBrightness(BRIGHTNESS);
   strip.begin();
   strip.show(); // Initialize all pixels to 'off'
@@ -30,7 +30,6 @@ void setup()
 
 void loop()
 {
-
   //fade all flowers 5 times
   for (uint16_t i = 0; i < 5; i++)
   {
@@ -40,18 +39,21 @@ void loop()
   //colorwipe all flowers 5 times
   for (uint16_t i = 0; i < 5; i++)
   {
+    //reset brightness from pulse function
     strip.setBrightness(200);
-    colorWipe(strip.Color(0, 0, 0), 75);
-    colorWipe(strip.Color(255, 255, 255), 75);
+    colorWipe(strip.Color(0, 0, 0), 75);  //wipe black/off
+    colorWipe(strip.Color(255, 255, 255), 75);//wipe white
   }
 
 }
 
+//change each LED to color c one at a time for each "flower"
 void colorWipe(uint32_t c, uint8_t wait)
 {
   for (uint16_t i = 0; i < 12; i++)
   {
-    strip.setPixelColor(i, c);    //flower #1
+    //change each "flower" at same time
+    strip.setPixelColor(i, c);      //flower #1
     strip.setPixelColor(i + 12, c); //flower #2
     strip.setPixelColor(i + 24, c); //flower #3
     strip.setPixelColor(i + 36, c); //flower #4
@@ -61,31 +63,33 @@ void colorWipe(uint32_t c, uint8_t wait)
   }
 }
 
+//pulse all flowers together color c
 void pulseColor(uint32_t c, uint8_t wait)
 {
   int i;
+  
+  //changes color for all "flowers" (just in case color is changed)
+  for (int x = 0; x < strip.numPixels(); x++)
+  {
+    strip.setPixelColor(x, c);
+  }
+  
   //Increase Brightness / Fade In
   for (i = minBrightness; i < maxBrightness; i++)
   {
+    //set brighness for all "flowers"
     strip.setBrightness(i);
 
-    for (int x = 0; x < strip.numPixels(); x++)
-    {
-      strip.setPixelColor(x, c);
-    }
     strip.show();
     delay(wait);
   }
-  //colorWipe(strip.Color(255, 255, 255), 5);
+
   //Lower Brightness / Fade Out
   for (i = maxBrightness; i > minBrightness; i--)
   {
+    //set brighness for all "flowers"
     strip.setBrightness(i);
 
-    for (int x = 0; x < strip.numPixels(); x++)
-    {
-      strip.setPixelColor(x, c);
-    }
     strip.show();
     delay(wait);
   }
