@@ -5,7 +5,6 @@
 
 int brightness = 0;    // how bright the LED is
 int fadeAmount = 5;    // how many points to fade the LED by
-int counter = 0;       // counter to keep track of cycles
 
 void setup()  
 { 
@@ -29,7 +28,6 @@ void loop()
   if (brightness == 0 || brightness == 255) 
   {
     fadeAmount = -fadeAmount; 
-    counter++;
   }     
     
   delay(15); 
