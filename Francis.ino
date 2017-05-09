@@ -1,10 +1,15 @@
+//Author: Anthony Garcia
+//Date: 5/9/17
+//Project: Francis - 2017 Golden Scissors Fashion Show
+//Version: 1.2
+
 int brightness = 0;    // how bright the LED is
 int fadeAmount = 5;    // how many points to fade the LED by
 int counter = 0;       // counter to keep track of cycles
-bool both = false;
-bool rSleeve = true;
+bool both = false;     // switch for effect
+bool rSleeve = true;   // switch for sleeves
 
-// the setup routine runs once when you press reset:
+
 void setup()
 {
   // declare pins to be an outputs:
@@ -12,7 +17,6 @@ void setup()
   pinMode(1, OUTPUT);  //left sleeve
 }
 
-// the loop routine runs over and over again forever:
 void loop()
 {
   if (both)
@@ -33,11 +37,11 @@ void loop()
 
 void fadeBoth()
 {
-  // set the brightness of the analog - connected LEDs:
+  // set the brightness of the LEDs
   analogWrite(0, brightness);
   analogWrite(1, brightness);
 
-  // change the brightness for next time through the loop:
+  // change the brightness for next time through the loop
   brightness = brightness + fadeAmount;
 
   // reverse the direction of the fading at the ends of the fade:
@@ -51,7 +55,7 @@ void fadeBoth()
   {
     counter++;
   }
-  // wait for 15 milliseconds to see the dimming effect
+
   delay(15);
 }
 
@@ -59,13 +63,13 @@ void fadeAlternating()
 {
   if (rSleeve)
   {
-    // set the brightness of the analog - connected LED:
+    // set the brightness of the LEDs
     analogWrite(0, brightness);
 
-    // change the brightness for next time through the loop:
+    // change the brightness for next time through the loop
     brightness = brightness + fadeAmount;
 
-    // reverse the direction of the fading at the ends of the fade:
+    // reverse the direction of the fading at the ends of the fade
     if (brightness == 0 || brightness == 255)
     {
       fadeAmount = -fadeAmount;
@@ -77,18 +81,18 @@ void fadeAlternating()
       counter++;
       rSleeve = !rSleeve;  //change to left sleeve when right sleeve is off
     }
-    // wait for 15 milliseconds to see the dimming effect
+
     delay(15);
   }
   else
   {
-    // set the brightness of the analog - connected LED:
+    // set the brightness of the LEDs
     analogWrite(0, brightness);
 
-    // change the brightness for next time through the loop:
+    // change the brightness for next time through the loop
     brightness = brightness + fadeAmount;
 
-    // reverse the direction of the fading at the ends of the fade:
+    // reverse the direction of the fading at the ends of the fade
     if (brightness == 0 || brightness == 255)
     {
       fadeAmount = -fadeAmount;
@@ -100,7 +104,7 @@ void fadeAlternating()
       counter++;
       rSleeve = !rSleeve;  //change to right sleeve when left sleeve is off
     }
-    // wait for 15 milliseconds to see the dimming effect
+
     delay(15);
   }
 }
