@@ -1,30 +1,36 @@
+//Author: Anthony Garcia
+//Date: 5/9/17
+//Project: Brooke - 2017 Golden Scissors Fashion Show
+//Version: 1.2
+
 int brightness = 0;    // how bright the LED is
 int fadeAmount = 5;    // how many points to fade the LED by
 int counter = 0;       // counter to keep track of cycles
 
-// the setup routine runs once when you press reset:
-void setup()  { 
-  // declare pins to be an outputs:
+void setup()  
+{ 
+  // declare all pins to be an outputs so user can connect to any pin
   pinMode(0, OUTPUT);
   pinMode(1, OUTPUT);
   pinMode(2, OUTPUT);
 } 
 
-// the loop routine runs over and over again forever:
-void loop()  { 
-  // set the brightness of the analog-connected LEDs:
+void loop()  
+{ 
+  // set the brightness of the sequins
   analogWrite(0, brightness);
   analogWrite(1, brightness);  
   analogWrite(2, brightness);
   
-  // change the brightness for next time through the loop:
+  // change the brightness for next time through the loop
   brightness = brightness + fadeAmount;
 
-  // reverse the direction of the fading at the ends of the fade: 
-  if (brightness == 0 || brightness == 255) {
+  // reverse the direction of the fading at the ends of the fade
+  if (brightness == 0 || brightness == 255) 
+  {
     fadeAmount = -fadeAmount; 
     counter++;
   }     
-  // wait for 15 milliseconds to see the dimming effect    
+    
   delay(15); 
 }
